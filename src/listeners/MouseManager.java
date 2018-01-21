@@ -13,19 +13,20 @@ public class MouseManager implements MouseListener, MouseMotionListener {
         checkMouseClick = false;
     }
 
-    public void tick() {
-        if (checkMouseClick) {
-            checkMouseClick = false;
-        }
-    }
-
     public boolean getCheckMouseClick() {
         return checkMouseClick;
     }
 
     @Override
     public void mouseClicked(MouseEvent mouseEvent) {
-        // TODO Auto-generated method stub
+        if (mouseEvent.getButton() == MouseEvent.BUTTON1) {
+            if (!leftClicked) {
+                checkMouseClick = true;
+                mouseX = mouseEvent.getX();
+                mouseY = mouseEvent.getY();
+            }
+            leftClicked = true;
+        }
     }
 
     @Override
@@ -40,12 +41,13 @@ public class MouseManager implements MouseListener, MouseMotionListener {
 
     @Override
     public void mousePressed(MouseEvent mouseEvent) {
-        if (mouseEvent.getButton() == MouseEvent.BUTTON1) {
-            if (!leftClicked) {
-                checkMouseClick = true;
-            }
-            leftClicked = true;
-        }
+        // TODO Auto-generated method stub
+//        if (mouseEvent.getButton() == MouseEvent.BUTTON1) {
+//            if (!leftClicked) {
+//                checkMouseClick = true;
+//            }
+//            leftClicked = true;
+//        }
     }
 
     @Override
@@ -65,5 +67,13 @@ public class MouseManager implements MouseListener, MouseMotionListener {
     public void mouseMoved(MouseEvent mouseEvent) {
         mouseX = mouseEvent.getX();
         mouseY = mouseEvent.getY();
+    }
+
+    public int getMouseX() {
+        return mouseX;
+    }
+
+    public int getMouseY() {
+        return mouseY;
     }
 }

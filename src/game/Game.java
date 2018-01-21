@@ -1,7 +1,9 @@
 package game;
 
 import display.Display;
+import graphics.Assets;
 import listeners.MouseManager;
+import producers.*;
 
 import javax.swing.*;
 import java.awt.*;
@@ -20,13 +22,31 @@ public class Game implements Runnable{
     private Graphics g;
     private int width = 600, height = 400;
 
+    private Producer badIdea;
+    private Producer brokenAPI;
+    private Producer faultyHardware;
+    private Producer slowInternet;
+    private Producer tiredHacker;
+
+    public static int money;
+
     public Game() {
         display = new Display("Hackathon Hackers", width, height);
+        init();
     }
 
 
     private void init() {
-
+        Assets.init();
+        money = 0;
+        mouseManager = new MouseManager();
+        badIdea = new BadIdea();
+        brokenAPI = new BrokenAPI();
+        faultyHardware = new FaultyHardware();
+        slowInternet = new SlowInternet();
+        tiredHacker = new TiredHacker();
+        display.getCanvas().addMouseListener(mouseManager);
+        display.getFrame().addMouseListener(mouseManager);
     }
 
     @Override
@@ -81,7 +101,28 @@ public class Game implements Runnable{
     }
 
     private void tick() {
+        money += (brokenAPI.getProductionRate() + badIdea.getProductionRate() + faultyHardware.getProductionRate() + slowInternet.getProductionRate() + tiredHacker.getProductionRate())/60;
 
+
+        if (mouseManager.checkMouseClick) {
+            if (mouseManager.getMouseX() < 300) {
+                money++;
+                mouseManager.checkMouseClick = false;
+            } else if (mouseManager.getMouseX() > 300) {
+                if (mouseManager.getMouseY() > 332) {
+                    faultyHardware.buildProducer();
+                } else if (mouseManager.getMouseY() > 264) {
+                    brokenAPI.buildProducer();
+                } else if (mouseManager.getMouseY() > 196) {
+                    tiredHacker.buildProducer();
+                } else if (mouseManager.getMouseY() > 128) {
+                    badIdea.buildProducer();
+                } else if (mouseManager.getMouseY() > 60) {
+                    slowInternet.buildProducer();
+                }
+                mouseManager.checkMouseClick = false;
+            }
+        }
     }
 
     private void render() {
@@ -97,7 +138,15 @@ public class Game implements Runnable{
         // clear
         g.clearRect(0, 0, width, height);
         g.setColor(Color.WHITE);
-        g.fillRect(0,0, 600, 400);
+        g.drawImage(Assets.backgroundImage, 0, 0, null);
+        g.setColor(Color.BLACK);
+        g.setFont(new Font("Arial", Font.PLAIN, 20));
+        g.drawString("Tears produced: " + money, 30, 350);
+        g.drawString(slowInternet.getCurrentPrice()+"", 400, 130);
+        g.drawString(badIdea.getCurrentPrice()+"", 400, 198);
+        g.drawString(tiredHacker.getCurrentPrice()+"", 400, 266);
+        g.drawString(brokenAPI.getCurrentPrice()+"", 400, 334);
+        g.drawString(faultyHardware.getCurrentPrice()+"", 400, 402);
 
         bs.show();
         g.dispose();
@@ -120,4 +169,6 @@ public class Game implements Runnable{
             e.printStackTrace();
         }
     }
+
+
 }

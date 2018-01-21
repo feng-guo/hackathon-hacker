@@ -1,5 +1,7 @@
 package producers;
 
+import game.Game;
+
 import java.awt.image.BufferedImage;
 
 public abstract class Producer {
@@ -29,9 +31,9 @@ public abstract class Producer {
     }
 
     public void buildProducer() {
-        if (true) {
+        if (Game.money >= currentPrice) {
             numberOfUnits++;
-            //money -= currentPrice;
+            Game.money -= currentPrice;
             currentPrice = (int) (currentPrice*PRICE_RATE);
         }
     }
@@ -40,7 +42,11 @@ public abstract class Producer {
         return sprite;
     }
 
-    public int productionRate() {
+    public int getProductionRate() {
         return numberOfUnits*BASE_PRODUCTION_RATE;
+    }
+
+    public int getCurrentPrice() {
+        return currentPrice;
     }
 }
