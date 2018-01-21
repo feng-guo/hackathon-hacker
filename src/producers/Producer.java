@@ -49,4 +49,8 @@ public abstract class Producer {
     public int getCurrentPrice() {
         return currentPrice;
     }
+
+    public int getNumberOfUnits() {
+        return numberOfUnits;
+    }
 }

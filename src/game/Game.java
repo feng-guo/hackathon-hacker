@@ -101,7 +101,7 @@ public class Game implements Runnable{
     }
 
     private void tick() {
-        money += (brokenAPI.getProductionRate() + badIdea.getProductionRate() + faultyHardware.getProductionRate() + slowInternet.getProductionRate() + tiredHacker.getProductionRate())/60;
+        money += Math.ceil((brokenAPI.getProductionRate() + badIdea.getProductionRate() + faultyHardware.getProductionRate() + slowInternet.getProductionRate() + tiredHacker.getProductionRate())/60);
 
 
         if (mouseManager.checkMouseClick) {
@@ -142,11 +142,17 @@ public class Game implements Runnable{
         g.setColor(Color.BLACK);
         g.setFont(new Font("Arial", Font.PLAIN, 20));
         g.drawString("Tears produced: " + money, 30, 350);
-        g.drawString(slowInternet.getCurrentPrice()+"", 400, 130);
-        g.drawString(badIdea.getCurrentPrice()+"", 400, 198);
-        g.drawString(tiredHacker.getCurrentPrice()+"", 400, 266);
-        g.drawString(brokenAPI.getCurrentPrice()+"", 400, 334);
-        g.drawString(faultyHardware.getCurrentPrice()+"", 400, 402);
+        g.drawString(slowInternet.getCurrentPrice()+"", 400, 110);
+        g.drawString(badIdea.getCurrentPrice()+"", 400, 178);
+        g.drawString(tiredHacker.getCurrentPrice()+"", 400, 246);
+        g.drawString(brokenAPI.getCurrentPrice()+"", 400, 314);
+        g.drawString(faultyHardware.getCurrentPrice()+"", 400, 382);
+
+        g.drawString(slowInternet.getNumberOfUnits()+"", 550, 110);
+        g.drawString(badIdea.getNumberOfUnits()+"", 550, 178);
+        g.drawString(tiredHacker.getNumberOfUnits()+"", 550, 246);
+        g.drawString(brokenAPI.getNumberOfUnits()+"", 550, 314);
+        g.drawString(faultyHardware.getNumberOfUnits()+"", 550, 382);
 
         bs.show();
         g.dispose();
