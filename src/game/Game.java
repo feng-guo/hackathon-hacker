@@ -28,6 +28,8 @@ public class Game implements Runnable{
     private Producer slowInternet;
     private Producer tiredHacker;
 
+    private double middleVariable;
+
     public static int money;
 
     public Game() {
@@ -39,6 +41,7 @@ public class Game implements Runnable{
     private void init() {
         Assets.init();
         money = 0;
+        middleVariable = 0;
         mouseManager = new MouseManager();
         badIdea = new BadIdea();
         brokenAPI = new BrokenAPI();
@@ -101,8 +104,11 @@ public class Game implements Runnable{
     }
 
     private void tick() {
-        money += Math.ceil((brokenAPI.getProductionRate() + badIdea.getProductionRate() + faultyHardware.getProductionRate() + slowInternet.getProductionRate() + tiredHacker.getProductionRate())/60);
-
+        middleVariable += Math.ceil((brokenAPI.getProductionRate() + badIdea.getProductionRate() + faultyHardware.getProductionRate() + slowInternet.getProductionRate() + tiredHacker.getProductionRate())/60);
+        if (middleVariable > 1) {
+            money += ((int) middleVariable);
+            middleVariable -= Math.floor(middleVariable);
+        }
 
         if (mouseManager.checkMouseClick) {
             if (mouseManager.getMouseX() < 300) {
