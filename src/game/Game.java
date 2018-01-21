@@ -104,7 +104,7 @@ public class Game implements Runnable{
     }
 
     private void tick() {
-        middleVariable += Math.ceil((brokenAPI.getProductionRate() + badIdea.getProductionRate() + faultyHardware.getProductionRate() + slowInternet.getProductionRate() + tiredHacker.getProductionRate())/60);
+        middleVariable += (brokenAPI.getProductionRate() + badIdea.getProductionRate() + faultyHardware.getProductionRate() + slowInternet.getProductionRate() + tiredHacker.getProductionRate())/60.0;
         if (middleVariable > 1) {
             money += ((int) middleVariable);
             middleVariable -= Math.floor(middleVariable);
