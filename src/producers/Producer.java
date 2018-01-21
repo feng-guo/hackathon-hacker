@@ -35,6 +35,7 @@ public abstract class Producer {
             numberOfUnits++;
             Game.money -= currentPrice;
             currentPrice = (int) (currentPrice*PRICE_RATE);
+            System.out.println (getProductionRate());
         }
     }
 

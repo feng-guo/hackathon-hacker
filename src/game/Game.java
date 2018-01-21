@@ -101,7 +101,7 @@ public class Game implements Runnable{
     }
 
     private void tick() {
-        money += Math.ceil((brokenAPI.getProductionRate() + badIdea.getProductionRate() + faultyHardware.getProductionRate() + slowInternet.getProductionRate() + tiredHacker.getProductionRate())/60);
+        money += Math.ceil((brokenAPI.getProductionRate() + badIdea.getProductionRate() + faultyHardware.getProductionRate() + slowInternet.getProductionRate() + tiredHacker.getProductionRate())/60.0);
 
 
         if (mouseManager.checkMouseClick) {
