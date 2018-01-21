@@ -13,7 +13,7 @@ public abstract class Producer {
     private int currentPrice;
     BufferedImage sprite;
 
-    public Producer(String name, int BASE_PRICE, int PRICE_RATE, int BASE_PRODUCTION_RATE) {
+    public Producer(String name, int BASE_PRICE, double PRICE_RATE, int BASE_PRODUCTION_RATE) {
         this.name = name;
         this.BASE_PRICE = BASE_PRICE;
         this.PRICE_RATE = PRICE_RATE;
